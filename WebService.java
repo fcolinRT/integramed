@@ -2,7 +2,7 @@ package com.app.ws; //Esta es la estructura de paquete creada
 
 import com.google.gson.Gson;
 import com.sap.smb.sbo.api.*;
-import javax.ws.rs.*; //Importamos la librer铆a para manejar RESTful
+import javax.ws.rs.*; //Importamos la librer脙颅a para manejar RESTful
 import javax.annotation.PostConstruct;
 //import javax.annotation.PreDestroy;
 import javax.ws.rs.core.Application;
@@ -24,7 +24,7 @@ public class WebService extends Application
     @PostConstruct
     public static void initialize() {
         if (ConectaSAP() == 0) {
-            System.out.println("RWT: API Ejecut醤dose");
+            System.out.println("RWT: API Ejecut谩ndose");
         } else {
             System.out.println("Cannot Connect: " + company.getLastError().getErrorMessage());
         }
@@ -39,7 +39,7 @@ public class WebService extends Application
         company.setUserName("ti");
         company.setPassword("2710");
         company.setUseTrusted(false);
-        company.setDbServerType(SBOCOMConstants.BoDataServerTypes_dst_MSSQL2008); // VERIFICAR VERSI脫N
+        company.setDbServerType(SBOCOMConstants.BoDataServerTypes_dst_MSSQL2008); // VERIFICAR VERSI脙鈥淣
         company.setLanguage(SBOCOMConstants.BoSuppLangs_ln_English); // Verificar Lenguaje
         company.setDbUserName("redwoodtwins");
         company.setDbPassword("SalesForce#19");
@@ -54,7 +54,7 @@ public class WebService extends Application
     @Path("test/{type}") //TEST (tipo)
     @GET //TEST
     @Produces({"text/plain", "text/html","text/xml", "application/json"}) //Indicamos que el tipo de salida es texto plano, XML, HTML o JSON
-    public String mostrarMensaje(@PathParam("type") String tipo)//M閠odo que recibe como parametro el valor de type en la URL
+    public String mostrarMensaje(@PathParam("type") String tipo)//M茅todo que recibe como parametro el valor de type en la URL
     {
         if(tipo.equalsIgnoreCase("texto"))
         {
@@ -270,8 +270,8 @@ public class WebService extends Application
                                 Addresses.setZipCode(Account.AddressZipCode);
                                 Addresses.setCity(Account.AddressCity);
                                 Addresses.setCounty(Account.AddressCounty);
-                                Addresses.setCountry(Account.AddressCountry);
-                                Addresses.setState(Account.AddressState);
+                                Addresses.setCountry(traductor("Pa铆s", Account.AddressCountry));
+                                Addresses.setState(traductor("Estado", Account.AddressState));
                                 //BusinessPartner.setAddressLogInstanc(Account.AddressLogInstanc);
                                 //BusinessPartner.setAddressObjType(Account.AddressObjType);
                                 Addresses.setFederalTaxID(Account.AddressLicTradNum);
@@ -298,7 +298,7 @@ public class WebService extends Application
                                         
                                 if(BusinessPartner.update() == 0){
                                 //if(BusinessPartner.add() == 0){
-                                    Result += "\"message\":\"Cuenta" +  IdCta + "_Contacto" + EmpInfo.getCardCode() + "_Direcci髇" + Addresses.getAddressName() + "\" }";
+                                    Result += "\"message\":\"Cuenta" +  IdCta + "_Contacto" + EmpInfo.getCardCode() + "_Direcci贸n" + Addresses.getAddressName() + "\" }";
                                 } else {
                                     SBOErrorMessage errMsg = company.getLastError();
                                     Result += "\"message\":\"Error: " +  BusinessPartner.update()+ errMsg.getErrorMessage() + "\"}";
@@ -333,10 +333,10 @@ public class WebService extends Application
             Partner Account = new Gson().fromJson(json, Partner.class);
                 try {
                     BusinessPartner = com.sap.smb.sbo.api.SBOCOMUtil.newBusinessPartners(company);
-                    System.out.println("RWT: Buscando Instituci髇 preexistente: "+Account.CardCode );
+                    System.out.println("RWT: Buscando Instituci贸n preexistente: "+Account.CardCode );
                     if(BusinessPartner.getByKey(Account.CardCode)){
                         AlreadyExists = true;
-                        System.out.println("RWT: Instituci髇 preexistente: "+BusinessPartner.getCardCode() );
+                        System.out.println("RWT: Instituci贸n preexistente: "+BusinessPartner.getCardCode() );
                     } else {
                         BusinessPartner.setCardCode(Account.CardCode);                        
                     }
@@ -384,8 +384,8 @@ public class WebService extends Application
                         Addresses.setZipCode(Account.AddressZipCode);
                         Addresses.setCity(Account.AddressCity);
                         Addresses.setCounty(Account.AddressCounty);
-                        Addresses.setCountry(Account.AddressCountry.substring(0,2));
-                        Addresses.setState(Account.AddressState.substring(0,3));
+                        Addresses.setCountry(traductor("Pa铆s", Account.AddressCountry));
+                        Addresses.setState(traductor("Estado", Account.AddressState));
                         Addresses.setFederalTaxID(Account.AddressLicTradNum);
                         Addresses.setBuildingFloorRoom(Account.AddressBuilding);
                         //Addresses.setAddressName2(Account.AddressAddress2);
@@ -399,7 +399,7 @@ public class WebService extends Application
                         BusinessPartner.setGroupCode(Account.gGroupCode);
                         BusinessPartner.setPayTermsGrpCode(Account.PaymenthGroupNum);
                         if(BusinessPartner.update() == 0){
-                            Result += "\"messageDir\":\"Direcci髇" + Addresses.getAddressName() + "\" }";
+                            Result += "\"messageDir\":\"Direcci贸n" + Addresses.getAddressName() + "\" }";
                         } else {
                             SBOErrorMessage errMsg = company.getLastError();
                             Result += "\"messageDir\":\"Error: " +  BusinessPartner.update()+ errMsg.getErrorMessage() + "\"}";
@@ -417,8 +417,42 @@ public class WebService extends Application
                     //res.status(400);
                     return "{\"message\":\"Error: " + e.getMessage() +  errMsg.getErrorMessage() + "\"}";
                 }
+        }  else if(objeto.equalsIgnoreCase("doctor")){
+            IUserTablesMD TRMEDICO;
+            String IdCta;
+            Boolean AlreadyExists = false;
+            
+            String Result = "{";
+            Partner Account = new Gson().fromJson(json, Partner.class);
+                try {
+                    TRMEDICO = com.sap.smb.sbo.api.SBOCOMUtil.getUserTablesMDs(company, "TRMEDICO");
+                    TRMEDICO.getTableName();
+
+                } catch (SBOCOMException e) {
+                    // get error message fom SAP Business One Server
+                    SBOErrorMessage errMsg = company.getLastError();
+                    //company.endTransaction(1 );
+                    //res.status(400);
+                    return "{\"message\":\"Error: " + e.getMessage() +  errMsg.getErrorMessage() + "\"}";
+                }
         } else {
             return "{\"message\":\"Entidad no soportada: " +  objeto + "\"}";
+        }
+    }
+    public String traductor(String category, String valor){
+        System.out.println("RWT: traductor "+category+valor);
+        switch(category){
+            case "Pa铆s":
+                switch(valor){
+                    case "Estados Unidos": return "US";
+                    default: return "MX";
+                }                
+            case "Estado":
+                switch(valor){
+                    case "Nuevo Le贸n":  return "NL";
+                    default: return "CDM";
+                }
+            default: return "Categor铆a de traducci贸n incorrecta";
         }
     }
 }
