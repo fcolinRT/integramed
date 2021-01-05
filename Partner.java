@@ -59,7 +59,6 @@ public class Partner {
     public String PaymenthPymntGroup;
         
     public Partner(String sCardCode, Integer iGroupCode, String sCardName, String sMailAddress, String sRFC, String sPhone1, String sPhone2, String sCntcPrsn, String sGroupNum, String sLicTradNum, Integer iListNum, Integer iCommission, Integer iSlpCode, String sCurrency, String sFatherCard, String sCardFName, Integer iFatherType, String sU_Nomina, String sU_Beneficiario, String sPersonCardCode, String sPersonName, String sPersonAddress, String sPersonTel1, String sPersonTel2, String sPersonMiddleName, String sPersonLastName, String sPersonFirstName, Integer iPersonActive, String sPersonPosition, String sAddressCardCode, String sAddressAddress, String sAddressAdresType, String sAddressStreet, String sAddressBlock, String sAddressZipCode, String sAddressCity, String sAddressCounty, String sAddressCountry, String sAddressState, String sAddressLogInstanc, Integer iAddressObjType, String sAddressLicTradNum, String sAddressLineNum, String sAddressTaxCode, String sAddressBuilding, String sAddressAddress2, String sAddressAddress3, String sAddressAddrTpe, String sAddressStreetNo, String sAddressU_Latitud, String sAddressU_Longitud, Integer sgGroupCode, String sgGroupName, String sPaymenthGroupNum, String sPaymenthPymntGroup  ) {
-        super();
         this.CardCode = sCardCode;
         this.GroupCode = iGroupCode;
         this.CardName = sCardName;
@@ -97,14 +96,9 @@ public class Partner {
         this.AddressZipCode = sAddressZipCode;
         this.AddressCity = sAddressCity;
         this.AddressCounty = sAddressCounty;
-        switch(sAddressCountry){
-            case "Estados Unidos": this.AddressCountry = "US"; break;
-            default: this.AddressCountry = "MX"; break;
-        }
-        switch(sAddressState){
-            case "Nuevo LeÛn": this.AddressState = "NL"; break;
-            default: this.AddressState = "CDM"; break;
-        }
+        this.AddressCountry = sAddressCountry;
+        this.AddressState = sAddressState;
+        System.out.println("RWT: End Traductor");
         this.AddressLogInstanc = sAddressLogInstanc;
         this.AddressObjType = iAddressObjType;
         this.AddressLicTradNum = sAddressLicTradNum;
@@ -123,10 +117,10 @@ public class Partner {
             case "15": this.PaymenthGroupNum = 41; break;
             case "20-25 d naturales": this.PaymenthGroupNum = 24; break;
             case "21": this.PaymenthGroupNum = 29; break;
-            case "25d h·biles": this.PaymenthGroupNum = 26; break;
+            case "25d h√°biles": this.PaymenthGroupNum = 26; break;
             case "28": this.PaymenthGroupNum = 12; break;
             case "30": this.PaymenthGroupNum = 1; break;
-            case "30d h·biles": this.PaymenthGroupNum = 1; break;
+            case "30d h√°biles": this.PaymenthGroupNum = 1; break;
             case "45d naturales": this.PaymenthGroupNum = 38; break;
             default:  this.PaymenthGroupNum = -1; break;
         }
