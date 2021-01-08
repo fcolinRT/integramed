@@ -418,17 +418,51 @@ public class WebService extends Application
                     return "{\"message\":\"Error: " + e.getMessage() +  errMsg.getErrorMessage() + "\"}";
                 }
         }  else if(objeto.equalsIgnoreCase("doctor")){
-            IUserTablesMD TRMEDICO;
+            IUserTable TRMEDICO;
             String IdCta;
             Boolean AlreadyExists = false;
-            
             String Result = "{";
-            Partner Account = new Gson().fromJson(json, Partner.class);
+            Doctor Medico = new Gson().fromJson(json, Doctor.class);
                 try {
-                    TRMEDICO = com.sap.smb.sbo.api.SBOCOMUtil.getUserTablesMDs(company, "TRMEDICO");
-                    TRMEDICO.getTableName();
-
-                } catch (SBOCOMException e) {
+                    //TRMEDICO2 = company.getCompanyService().getGeneralService("TRMEDICOS").getDataInterface(0);
+                    TRMEDICO = company.getUserTables().item("TRMEDICOS");
+                    //TRMEDICO = com.sap.smb.sbo.api.SBOCOMUtil.getUserTablesMD(company, "TRMEDICOS");
+                    //return "{\"message\":\"RWT Tabla: "+TRMEDICO.getTableName() + "\"}";
+                    System.out.println("RWT: Buscando Médico preexistente: "+Medico.Code );
+                    if(TRMEDICO.getByKey(Medico.Code)){
+                        AlreadyExists = true;
+                        System.out.println("RWT: Médico preexistente: "+TRMEDICO.getCode() );
+                    } else {
+                        TRMEDICO.setCode(Medico.Code);
+                    }
+                    TRMEDICO.setName(Medico.Name);
+                    TRMEDICO.getUserFields().getFields().item("U_Nombre").setValue(Medico.U_Nombre);
+                    TRMEDICO.getUserFields().getFields().item("U_MedApPat").setValue(Medico.U_MedApPat);
+                    TRMEDICO.getUserFields().getFields().item("U_MedApMat").setValue(Medico.U_MedApMat);
+                    TRMEDICO.getUserFields().getFields().item("U_ClaveMedico").setValue(Medico.U_ClaveMedico);
+                    TRMEDICO.getUserFields().getFields().item("U_EspecialidadMed").setValue(Medico.U_EspecialidadMed);
+                    TRMEDICO.getUserFields().getFields().item("U_EstadoRep").setValue(Medico.U_EstadoRep);
+                    TRMEDICO.getUserFields().getFields().item("U_Poblacion").setValue(Medico.U_Poblacion);
+                    TRMEDICO.getUserFields().getFields().item("U_Institucion").setValue(Medico.U_Institucion);
+                    TRMEDICO.getUserFields().getFields().item("U_TelMedico").setValue(Medico.U_TelMedico);
+                    TRMEDICO.getUserFields().getFields().item("firma").setValue(Medico.firma);
+                    TRMEDICO.getUserFields().getFields().item("CedulaProf").setValue(Medico.CedulaProf);
+                    if(!AlreadyExists) {
+                        TRMEDICO.add();
+                        IdCta = company.getNewObjectCode();
+                    } else {
+                        if(TRMEDICO.update() == 0){
+                            IdCta = TRMEDICO.getCode();
+                        } else {
+                            SBOErrorMessage errMsg = company.getLastError();
+                            IdCta = "Error: " +  errMsg.getErrorMessage();
+                        }
+                    }
+                    if(IdCta != null && !IdCta.equalsIgnoreCase("")){
+                        Result +=  "\"id\":\"" +  IdCta + "\", ";
+                    }
+                    return Result;                 
+                } catch (Exception e) {
                     // get error message fom SAP Business One Server
                     SBOErrorMessage errMsg = company.getLastError();
                     //company.endTransaction(1 );
