@@ -421,7 +421,6 @@ public class WebService extends Application
             IUserTable TRMEDICO;
             String IdCta;
             Boolean AlreadyExists = false;
-            String Result = "{";
             Doctor Medico = new Gson().fromJson(json, Doctor.class);
                 try {
                     //TRMEDICO2 = company.getCompanyService().getGeneralService("TRMEDICOS").getDataInterface(0);
@@ -433,6 +432,7 @@ public class WebService extends Application
                         AlreadyExists = true;
                         System.out.println("RWT: Médico preexistente: "+TRMEDICO.getCode() );
                     } else {
+                        TRMEDICO.add();
                         TRMEDICO.setCode(Medico.Code);
                     }
                     TRMEDICO.setName(Medico.Name);
@@ -443,13 +443,17 @@ public class WebService extends Application
                     TRMEDICO.getUserFields().getFields().item("U_EspecialidadMed").setValue(Medico.U_EspecialidadMed);
                     TRMEDICO.getUserFields().getFields().item("U_EstadoRep").setValue(Medico.U_EstadoRep);
                     TRMEDICO.getUserFields().getFields().item("U_Poblacion").setValue(Medico.U_Poblacion);
-                    TRMEDICO.getUserFields().getFields().item("U_Institucion").setValue(Medico.U_Institucion);
+                    TRMEDICO.getUserFields().getFields().item("U_Institucion").setValue(traductor("InstitucionMedico", Medico.U_Institucion));
                     TRMEDICO.getUserFields().getFields().item("U_TelMedico").setValue(Medico.U_TelMedico);
-                    TRMEDICO.getUserFields().getFields().item("firma").setValue(Medico.firma);
-                    TRMEDICO.getUserFields().getFields().item("CedulaProf").setValue(Medico.CedulaProf);
+                    TRMEDICO.getUserFields().getFields().item("U_firma").setValue(Medico.firma);
+                    TRMEDICO.getUserFields().getFields().item("U_CedulaProf").setValue(Medico.CedulaProf);
                     if(!AlreadyExists) {
-                        TRMEDICO.add();
-                        IdCta = company.getNewObjectCode();
+                        if(TRMEDICO.add() == 0){
+                            IdCta = company.getNewObjectCode();
+                        } else {
+                            SBOErrorMessage errMsg = company.getLastError();
+                            IdCta = "Error: " +  errMsg.getErrorMessage();
+                        }
                     } else {
                         if(TRMEDICO.update() == 0){
                             IdCta = TRMEDICO.getCode();
@@ -458,10 +462,7 @@ public class WebService extends Application
                             IdCta = "Error: " +  errMsg.getErrorMessage();
                         }
                     }
-                    if(IdCta != null && !IdCta.equalsIgnoreCase("")){
-                        Result +=  "\"id\":\"" +  IdCta + "\", ";
-                    }
-                    return Result;                 
+                    return "{ \"id\":\"" +  IdCta + "\" }";                 
                 } catch (Exception e) {
                     // get error message fom SAP Business One Server
                     SBOErrorMessage errMsg = company.getLastError();
@@ -485,6 +486,11 @@ public class WebService extends Application
                 switch(valor){
                     case "Nuevo León":  return "NL";
                     default: return "CDM";
+                }
+            case "InstitucionMedico":
+                switch(valor){
+                    case "AXA Assistance":  return "1";
+                    default: return "0";
                 }
             default: return "Categoría de traducción incorrecta";
         }
