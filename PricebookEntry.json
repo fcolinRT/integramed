@@ -1,0 +1,36 @@
+{
+    "salesForceTableName": "PricebookEntry",
+    "multipleIds": true,
+    "salesforceIds": ["ProductCode__c","Pricebook2_ExternalId__c"],
+    "erpIds": ["ItemCode","PriceList"],
+    "hasCustomParsing": false,
+	"relatedObject": true,
+	"subObject" :"",
+    "primaryKey": {
+        "salesforceFieldName": "ProductCode__c",
+        "erpFieldName": "ItemCode",
+        "type": "STRING"
+    },      
+	"externalId": {
+        "salesforceFieldName": "Pricebook2_ExternalId__c",
+        "erpFieldName": "PriceList",
+        "type": "STRING"
+      },
+    "fields": [
+      {
+        "salesforceFieldName": "ProductCode__c",
+        "erpFieldName": "ItemCode",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Pricebook2_ExternalId__c",
+        "erpFieldName": "PriceList",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "UnitPrice",
+        "erpFieldName": "Price",
+        "type": "FLOAT"
+      }
+    ]
+  }

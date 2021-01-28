@@ -1,0 +1,55 @@
+{
+    "salesForceTableName": "Route__c",
+    "multipleIds": false,
+    "salesforceIds": [],
+    "erpIds": [],
+    "hasCustomParsing": false,
+	"relatedObject": false,
+	"subObject" :"",
+    "primaryKey": {
+        "salesforceFieldName": "Route__c",
+        "erpFieldName": "route",
+        "type": "INT"
+      },
+      "externalId": {
+        "salesforceFieldName": "Route__c",
+        "erpFieldName": "route",
+        "type": "INT"
+      },
+    "fields": [
+		{
+        "salesforceFieldName": "Route__c",
+        "erpFieldName": "route",
+        "type": "INT"
+      },
+      {
+        "salesforceFieldName": "Ended__c",
+        "erpFieldName": "ended",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Ended_at__c",
+        "erpFieldName": "ended_at",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Started__c",
+        "erpFieldName": "started",
+        "type": "STRING"      },
+      {
+        "salesforceFieldName": "Started_at__c",
+        "erpFieldName": "started_at",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Truck_driver__c",
+        "erpFieldName": "truck_driver",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Truck__c",
+        "erpFieldName": "truck",
+        "type": "STRING"
+      }
+    ]
+  }

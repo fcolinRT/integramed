@@ -1,0 +1,31 @@
+{
+    "salesForceTableName": "OrderItem",
+    "multipleIds": false,
+    "salesforceIds": [],
+    "erpIds": [],
+    "hasCustomParsing": false,
+	"relatedObject": false,
+	"subObject" :"",
+    "primaryKey": {
+      "salesforceFieldName": "OrderId",
+      "erpFieldName": "ORDERID",
+      "type": "STRING"
+    },
+    "fields": [
+      {
+        "salesforceFieldName": "OrderId",
+        "erpFieldName": "ORDERID",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "ProductCode__c",
+        "erpFieldName": "ITEMCODE",
+        "type": "INT"
+      },
+      {
+        "salesforceFieldName": "Quantity",
+        "erpFieldName": "QUANTITY",
+        "type": "INT"
+      }
+    ]
+  }

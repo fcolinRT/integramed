@@ -1,0 +1,31 @@
+{
+    "salesForceTableName": "Opportunity",
+    "multipleIds": false,
+    "salesforceIds": [],
+    "erpIds": [],
+    "hasCustomParsing": true,
+	"relatedObject": false,
+	"subObject" :"",
+  "primaryKey": {
+      "salesforceFieldName": "SAPOrder__c",
+      "erpFieldName": "DOCNUM",
+      "type": "INT"
+    },
+    "externalId": {
+      "salesforceFieldName": "SAPOrder__c",
+      "erpFieldName": "DOCNUM",
+      "type": "INT"
+    },
+    "fields": [
+      {
+        "salesforceFieldName": "SAPOrder__c",
+        "erpFieldName": "DOCNUM",
+        "type": "INT"
+      },
+      {
+        "salesforceFieldName": "SubStageName__c",
+        "erpFieldName": "DOCSTATUS",
+        "type": "STRING"
+      }
+    ]
+  }

@@ -1,0 +1,41 @@
+{
+    "salesForceTableName": "Dispatch__c",
+    "multipleIds": false,
+    "salesforceIds": [],
+    "erpIds": [],
+    "hasCustomParsing": false,
+	"relatedObject": false,
+	"subObject" :"",
+    "primaryKey": {
+        "salesforceFieldName": "Identifier__c",
+        "erpFieldName": "identifier",
+        "type": "INT"
+      },
+      "externalId": {
+        "salesforceFieldName": "Identifier__c",
+        "erpFieldName": "identifier",
+        "type": "INT"
+      },
+    "fields": [
+      {
+        "salesforceFieldName": "Identifier__c",
+        "erpFieldName": "identifier",
+        "type": "INT"
+      },
+      {
+        "salesforceFieldName": "Route__c",
+        "erpFieldName": "route_id",
+        "type": "INT"
+      },
+	  {
+        "salesforceFieldName": "Status__c",
+        "erpFieldName": "status",
+        "type": "INT"
+      },
+      {
+        "salesforceFieldName": "is_trunk__c",
+        "erpFieldName": "is_trunk",
+        "type": "BOOLEAN"
+      }
+    ]
+  }

@@ -1,0 +1,41 @@
+{
+    "salesForceTableName": "Inventory__c",
+    "multipleIds": true,
+    "salesforceIds": ["ProductCode__c","Warehouse_ExternalId__c"],
+    "erpIds": ["ItemCode","ItemCode"],
+    "hasCustomParsing": false,
+	"relatedObject": false,
+	"subObject" :"",
+    "primaryKey": {
+        "salesforceFieldName": "ProductCode__c",
+        "erpFieldName": "ItemCode",
+        "type": "STRING"
+    },      
+	"externalId": {
+        "salesforceFieldName": "Warehouse_ExternalId__c",
+        "erpFieldName": "WhsCode",
+        "type": "STRING"
+      },
+    "fields": [
+      {
+        "salesforceFieldName": "ProductCode__c",
+        "erpFieldName": "ItemCode",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Warehouse_ExternalId__c",
+        "erpFieldName": "WhsCode",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Stock__c",
+        "erpFieldName": "OnHand",
+        "type": "INT"
+      },
+      {
+        "salesforceFieldName": "Comprometido__c",
+        "erpFieldName": "IsCommited",
+        "type": "INT"
+      }
+    ]
+  }

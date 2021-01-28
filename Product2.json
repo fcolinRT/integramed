@@ -1,0 +1,116 @@
+{
+    "salesForceTableName": "Product2",
+    "multipleIds": false,
+    "salesforceIds": ["ExternalId"],
+    "erpIds": ["ItemCode"],
+    "hasCustomParsing": true,
+	"relatedObject": false,
+	"subObject": "Validation__c",
+    "primaryKey": {
+        "salesforceFieldName": "ProductCode",
+        "erpFieldName": "ItemCode",
+        "type": "STRING"
+    },      
+	"externalId": {
+        "salesforceFieldName": "ExternalId",
+        "erpFieldName": "ItemCode",
+        "type": "STRING"
+      },
+    "fields": [
+      {
+        "salesforceFieldName": "ExternalId",
+        "erpFieldName": "ItemCode",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "ProductCode",
+        "erpFieldName": "ItemCode",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Name",
+        "erpFieldName": "ItemName",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Barcode__c",
+        "erpFieldName": "CodeBars",
+        "type": "STRING"
+      },
+	  {
+        "salesforceFieldName": "Principio_Activo__c",
+        "erpFieldName": "FrgnName",
+        "type": "STRING"
+      },
+	  {
+        "salesforceFieldName": "BuyUnitOfMeasure__c",
+        "erpFieldName": "BuyUnitMsr",
+        "type": "STRING"
+      },
+	  {
+        "salesforceFieldName": "SaleUnitOfMeasure__c",
+        "erpFieldName": "SalUnitMsr",
+        "type": "STRING"
+      },
+	  {
+        "salesforceFieldName": "QuantityPerBuyUnit__c",
+        "erpFieldName": "NumInBuy",
+        "type": "INT"
+      },
+	  {
+        "salesforceFieldName": "NumInSale__c",
+        "erpFieldName": "NumInSale",
+        "type": "INT"
+      },
+	  {
+        "salesforceFieldName": "IVA__c",
+        "erpFieldName": "TaxCodeAR",
+        "type": "STRING"
+      },
+	  {
+	    "salesforceFieldName": "Controlado__c",
+        "erpFieldName": "QryGroup3",
+        "type": "CHAR"
+      },
+	  {
+	    "salesforceFieldName": "Antibiotico__c",
+        "erpFieldName": "QryGroup4",
+        "type": "CHAR"
+      },
+	  {
+	    "salesforceFieldName": "Refrigerado__c",
+        "erpFieldName": "QryGroup5",
+        "type": "CHAR"
+      },
+	  {
+	    "salesforceFieldName": "ChronicSpecialty__c",
+        "erpFieldName": "QryGroup6",
+        "type": "CHAR"
+      },
+	  {
+	    "salesforceFieldName": "Cambio_EAN__c",
+        "erpFieldName": "QryGroup30",
+        "type": "CHAR"
+      },
+	  {
+	    "salesforceFieldName": "Faltante__c",
+        "erpFieldName": "QryGroup31",
+        "type": "CHAR"
+      },
+	  {
+	    "salesforceFieldName": "OutCatalog__c",
+        "erpFieldName": "QryGroup33",
+        "type": "CHAR"
+      },
+	  {
+	    "salesforceFieldName": "Vaccine__c",
+        "erpFieldName": "QryGroup41",
+        "type": "CHAR"
+      },
+	  {
+	    "salesforceFieldName": "Low_Availability__c",
+        "erpFieldName": "QryGroup42",
+        "type": "CHAR"
+      }
+    ]	
+  }

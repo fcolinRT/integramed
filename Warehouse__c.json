@@ -1,0 +1,41 @@
+{
+    "salesForceTableName": "Warehouse__c",
+    "multipleIds": false,
+    "salesforceIds": [],
+    "erpIds": [],
+    "hasCustomParsing": false,
+	"relatedObject": false,
+	"subObject" :"",
+    "primaryKey": {
+        "salesforceFieldName": "ExternalId__c",
+        "erpFieldName": "WhsCode",
+        "type": "STRING"
+      },
+      "externalId": {
+        "salesforceFieldName": "ExternalId__c",
+        "erpFieldName": "WhsCode",
+        "type": "STRING"
+      },
+    "fields": [
+      {
+        "salesforceFieldName": "ExternalId__c",
+        "erpFieldName": "WhsCode",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Name",
+        "erpFieldName": "WhsName",
+        "type": "STRING"
+      },
+	  {
+		"salesforceFieldName": "Email__c",
+        "erpFieldName": "WhsEmail",
+        "type": "STRING"
+	  },
+	  {
+		"salesforceFieldName": "AvailableFlag__c",
+        "erpFieldName": "WhsFlag",
+        "type": "BOOLEAN"
+	  }
+    ]
+  }

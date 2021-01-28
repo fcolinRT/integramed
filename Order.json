@@ -1,0 +1,31 @@
+{
+    "salesForceTableName": "Order",
+    "multipleIds": false,
+    "salesforceIds": [],
+    "erpIds": [],
+    "hasCustomParsing": false,
+	"relatedObject": false,
+	"subObject" :"",
+    "primaryKey": {
+        "salesforceFieldName": "ExternalId__c",
+        "erpFieldName": "DOCNUM",
+        "type": "STRING"
+      },
+      "externalId": {
+        "salesforceFieldName": "ExternalId__c",
+        "erpFieldName": "DOCNUM",
+        "type": "STRING"
+      },
+    "fields": [
+      {
+        "salesforceFieldName": "ExternalId__c",
+        "erpFieldName": "DOCNUM",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "SAPOrder__c",
+        "erpFieldName": "DOCNUM_ORDR",
+        "type": "STRING"
+      }
+    ]
+  }

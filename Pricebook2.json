@@ -1,0 +1,36 @@
+{
+    "salesForceTableName": "Pricebook2",
+    "multipleIds": false,
+    "salesforceIds": [],
+    "erpIds": [],
+    "hasCustomParsing": false,
+	"relatedObject": false,
+	"subObject" :"",
+    "primaryKey": {
+        "salesforceFieldName": "ExternalId__c",
+        "erpFieldName": "ListNum",
+        "type": "STRING"
+      },
+      "externalId": {
+        "salesforceFieldName": "ExternalId__c",
+        "erpFieldName": "ListNum",
+        "type": "STRING"
+      },
+    "fields": [
+      {
+        "salesforceFieldName": "ExternalId__c",
+        "erpFieldName": "ListNum",
+        "type": "STRING"
+      },
+      {
+        "salesforceFieldName": "Name",
+        "erpFieldName": "ListName",
+        "type": "STRING"
+      },
+	  {
+		"salesforceFieldName": "IsActive",
+		"erpFieldName": "ACTIVE",
+        "type": "BOOLEAN"
+	  }
+    ]
+  }

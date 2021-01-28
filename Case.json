@@ -1,0 +1,31 @@
+{
+  "salesForceTableName": "Case",
+  "multipleIds": false,
+  "salesforceIds": [],
+  "erpIds": [],
+  "hasCustomParsing": true,
+  "relatedObject": false,
+  "subObject" :"",
+  "primaryKey": {
+      "salesforceFieldName": "HealthCloudGA__SourceSystemID__c",
+      "erpFieldName": "DOCNUM",
+      "type": "INT"
+    },
+    "externalId": {
+      "salesforceFieldName": "HealthCloudGA__SourceSystemID__c",
+      "erpFieldName": "DOCNUM",
+      "type": "INT"
+    },
+  "fields": [
+    {
+      "salesforceFieldName": "HealthCloudGA__SourceSystemID__c",
+      "erpFieldName": "DOCNUM",
+      "type": "INT"
+    },
+    {
+      "salesforceFieldName": "Status",
+      "erpFieldName": "DOCSTATUS",
+      "type": "STRING"
+    }
+  ]
+}
