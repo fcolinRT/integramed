@@ -1,6 +1,6 @@
 package com.app.ws; //Esta es la estructura de paquete creada
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.sap.smb.sbo.api.*;
 import javax.ws.rs.*; //Importamos la librerÃ­a para manejar RESTful
 import javax.annotation.PostConstruct;
@@ -490,14 +490,11 @@ public class WebService extends Application
                         return "{\"message\":\"Error: " + e.getMessage() +  errMsg.getErrorMessage() + "\"}";
                     }
             }  else if(objeto.equalsIgnoreCase("invertorytransfer")){
-                Boolean AlreadyExists = false;
                 InventoryTransfer inventoryTransfer = new Gson().fromJson(json, InventoryTransfer.class);
                     try {
 			List<Product> products = inventoryTransfer.getProducts();
 			System.out.println(products);
-			IStockTransfer nst
-                         uba = SBOCOMUtil.
-			nst = SBOCOMUtil.newStockTransfer(company);
+			IStockTransfer nst = SBOCOMUtil.newStockTransfer(company, SBOCOMConstants.BoObjectTypes_Document_oStockTransferDraft);
 			//nst = SBOCOMUtil.newDocuments(appMain.company,SBOCOMConstants.BoObjectTypes_Document_oInventoryGenEntry);
 			//nst.setDocDate(Date.valueOf("2019-10-10"));
 			nst.setDocDate(Date.valueOf(strDate));
@@ -528,6 +525,58 @@ public class WebService extends Application
                     } catch (Exception e) {
                         // get error message fom SAP Business One Server
                         SBOErrorMessage errMsg = company.getLastError();
+                        //company.endTransaction(1 );
+                        //res.status(400);
+                        return "{\"message\":\"Error: " + e.getMessage() +  errMsg.getErrorMessage() + "\"}";
+                    }
+            } else if(objeto.equalsIgnoreCase("entrega")){
+                System.out.println("RWT: json: "+json);
+                Gson obGson = new GsonBuilder().registerTypeAdapter(Date.class, new DateDeserializer()).create();
+                //obGson.registerTypeAdapter(Date.class, new DateDeserializer());
+                Delivery DeliveryOrder = obGson.fromJson(json, Delivery.class);
+                    try {
+			IDocuments Entrega = SBOCOMUtil.newDocuments(company,SBOCOMConstants.BoObjectTypes_Document_oDeliveryNotes);
+                        System.out.println("RWT: Buscando Entrega preexistente: "+DeliveryOrder.DocEntry);
+                        if(Entrega.getByKey(DeliveryOrder.DocEntry)){
+                            System.out.println("RWT: Entrega preexistente: "+Entrega.getDocEntry());
+                            if(DeliveryOrder.Fechas.split("@")[0] != "") {
+                                
+                                System.out.println("RWT: DeliveryOrder.Fecha_Entrega_Farmacia: "+DeliveryOrder.Fechas.split("@")[0] );
+                                Entrega.getUserFields().getFields().item("U_FEnt_Farm_Log").setValue(DeliveryOrder.Fechas.split("@")[0] );
+                                //Entrega.getUserFields().getFields().item("U_FEnt_Farm_Log2").setValue(DeliveryOrder.Fechas.split("@")[0] );
+                            }
+                            if(DeliveryOrder.Fechas.split("@")[1] != "") {
+                                System.out.println("RWT: DeliveryOrder.Fecha_Entrega_Mensajeria: "+DeliveryOrder.Fechas.split("@")[1]);
+                                Entrega.getUserFields().getFields().item("U_FEntregaAMens").setValue(DeliveryOrder.Fechas.split("@")[1]);
+                            }
+                            //Entrega.setAddress(DeliveryOrder.Address);Update of "Address" field is not possible  [DLN12.StreetS][line: 0]
+                            //Entrega.setAddress2(DeliveryOrder.Address2);Update of "Address" field is not possible  [DLN12.StreetS][line: 0]
+                            //Entrega.setCardName(DeliveryOrder.CardName);[ODLN.CardName] , 'Field cannot be updated (ODBC -1029)
+                            Entrega.setPayToCode(DeliveryOrder.PayToCode);
+                            Entrega.setTrackingNumber(DeliveryOrder.Seguimiento);
+                            Entrega.setComments(DeliveryOrder.Observaciones);
+                            Entrega.getUserFields().getFields().item("U_Firma").setValue(DeliveryOrder.Sello);
+                            Entrega.getUserFields().getFields().item("U_CalifServicio").setValue(DeliveryOrder.Calificacion);
+                            Entrega.getUserFields().getFields().item("U_ComentServicio").setValue(DeliveryOrder.Comentarios);
+                            if (Entrega.update() == 0){
+                                //res.type("application/json");
+                                //res.status(201);
+                                return "{\"id\":\"" +  Entrega.getDocEntry() + "\"}";
+                            } else {
+                                // get error message fom SAP Business One Server
+                                SBOErrorMessage errMsg = company.getLastError();
+                                System.out.println("Cannot update Delivery Order: " + errMsg.getErrorMessage()+ " "+ errMsg.getErrorCode());
+                                //res.type("application/json");
+                                //res.status(400);
+                                return "{\"message\":\"" +  errMsg.getErrorMessage() + "\"}";
+                            }
+                        } else {
+                           return "{\"message\":\"Entrega no encontrada - " +  DeliveryOrder.DocEntry + "\"}"; 
+                        }     
+                    } catch (Exception e) {
+                        // get error message fom SAP Business One Server
+                        SBOErrorMessage errMsg = company.getLastError();
+                        System.out.println("RWT Error: "+e.getMessage() +  errMsg.getErrorMessage() );
                         //company.endTransaction(1 );
                         //res.status(400);
                         return "{\"message\":\"Error: " + e.getMessage() +  errMsg.getErrorMessage() + "\"}";
