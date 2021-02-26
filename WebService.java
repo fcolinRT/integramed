@@ -494,7 +494,12 @@ public class WebService extends Application
                     try {
 			List<Product> products = inventoryTransfer.getProducts();
 			System.out.println(products);
-			IStockTransfer nst = SBOCOMUtil.newStockTransfer(company, SBOCOMConstants.BoObjectTypes_Document_oStockTransferDraft);
+                        //System.out.println("RWT: date: "+strDate);
+                        //StockTransfer nst = company.GetBusinessObject(BoObjectTypes.oStockTransferDraft);
+                        //oTransfer.DocObjectCode =  BoObjectTypes.oInventoryTransferRequest;
+                        IStockTransfer nst = SBOCOMUtil.newStockTransfer(company, SBOCOMConstants.BoObjectTypes_StockTransfer_oInventoryTransferRequest);
+                        //nst.setDocObjectCode(SBOCOMConstants.BoObjectTypes_StockTransfer_oInventoryTransferRequest);
+			//nst.setDocObjectCode(SBOCOMConstants.BoObjectTypes_oStockTransfer);
 			//nst = SBOCOMUtil.newDocuments(appMain.company,SBOCOMConstants.BoObjectTypes_Document_oInventoryGenEntry);
 			//nst.setDocDate(Date.valueOf("2019-10-10"));
 			nst.setDocDate(Date.valueOf(strDate));
@@ -502,6 +507,7 @@ public class WebService extends Application
 			nst.setCardName(inventoryTransfer.getCardName());
 			nst.setComments(inventoryTransfer.getComments());
 			nst.setFromWarehouse(inventoryTransfer.getFromWarehouse());
+                        //SBOCOMUtil.getSBObob(company).getCurrencyRate(strDate, ourJavaDateObject)
 			for (int productIndex=0; productIndex < products.size(); productIndex++) {
                             nst.getLines().add();
                             nst.getLines().setCurrentLine(productIndex);
@@ -539,11 +545,13 @@ public class WebService extends Application
                         System.out.println("RWT: Buscando Entrega preexistente: "+DeliveryOrder.DocEntry);
                         if(Entrega.getByKey(DeliveryOrder.DocEntry)){
                             System.out.println("RWT: Entrega preexistente: "+Entrega.getDocEntry());
-                            if(DeliveryOrder.Fechas.split("@")[0] != "") {
-                                
-                                System.out.println("RWT: DeliveryOrder.Fecha_Entrega_Farmacia: "+DeliveryOrder.Fechas.split("@")[0] );
-                                Entrega.getUserFields().getFields().item("U_FEnt_Farm_Log").setValue(DeliveryOrder.Fechas.split("@")[0] );
-                                //Entrega.getUserFields().getFields().item("U_FEnt_Farm_Log2").setValue(DeliveryOrder.Fechas.split("@")[0] );
+                            String FechaRecepcion = DeliveryOrder.Fechas.split("@")[0];
+                            String HoraRecepcion = FechaRecepcion.split(" ")[1];
+                            System.out.println("RWT: DeliveryOrder.Fecha_Entrega_Farmacia: "+FechaRecepcion );
+                            System.out.println("RWT: HoraRecepcion: "+HoraRecepcion.substring(0,2));
+                            if(FechaRecepcion.length() > 0) {
+                                Entrega.getUserFields().getFields().item("U_FEnt_Farm_Log").setValue(FechaRecepcion );
+                                Entrega.getUserFields().getFields().item("U_HoraRecepcion").setValue(Integer.parseInt(HoraRecepcion.substring(0,2)));
                             }
                             if(DeliveryOrder.Fechas.split("@")[1] != "") {
                                 System.out.println("RWT: DeliveryOrder.Fecha_Entrega_Mensajeria: "+DeliveryOrder.Fechas.split("@")[1]);
