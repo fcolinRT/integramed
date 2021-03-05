@@ -122,6 +122,33 @@ class SF:
                 except:
                     print("RWT: Falla actualización de registro")
 
+    def closeApprove(self, objectName, id):
+        config = self.getObjectConfig(objectName)
+        primaryKey = "Order_ExternalId__c"
+        hasMultipleIds = config['multipleIds']
+        ids = config['salesforceIds']
+        relatedObject = config['relatedObject']
+        salesForceSubObject = config['subObject']
+        salesForceObject = self.sf.__getattr__(objectName)
+        parsedData = {}
+        parsedData["Order_ExternalId__c"] = str(id)
+        parsedData["Status"] = "Cerrado"      
+        print("RWT: Close alreadyInSF?")
+        alreadyInSF, results = self.isAlreadyInSF(ids, parsedData, hasMultipleIds, primaryKey, objectName)
+        if alreadyInSF:
+            objectId = results['records'][0]['Id']
+            print("RWT: Update")
+            if (self.hasExternalId(config)):
+                externalId = 'Id/' + objectId
+                parsedData.pop(primaryKey, None)
+                print("RWT: Upsert Has External Id "+ str(externalId))
+                try:
+                    reponse_id = salesForceObject.upsert(externalId, parsedData)
+                    print("RWT: Response"+str(reponse_id))
+                    return reponse_id
+                except:
+                    print("RWT: Falla actualización de registro")
+
     def is_int(self, string):
         try:
             int(string)
