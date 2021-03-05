@@ -51,7 +51,10 @@ def parse(salesforceObject):
             sf.send(data['subOject'][0]['objectName'], [data['subOject'][0]['data']])
         return jsonify(data)
     if request.method == 'GET':
-        print("RWT Get Method")
-        print("RWT request.args"+str(request.args.get("Id")))
-        sf.sendApprove(salesforceObject, request.args.get("Id"),request.args.get("approve"))
+        if(str(request.args.get("approve")) == "true" or str(request.args.get("approve")) == "false"):
+            print("RWT sendApprove")
+            sf.sendApprove(salesforceObject, request.args.get("Id"),request.args.get("approve"))
+        else:
+            print("RWT closeApprove")
+            sf.closeApprove(salesforceObject, request.args.get("Id"))
         return "Su respuesta ha sido enviada a Salesforce, gracias."
